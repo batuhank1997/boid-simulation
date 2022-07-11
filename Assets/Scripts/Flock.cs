@@ -11,7 +11,7 @@ public class Flock : MonoBehaviour
     
     private List<FlockAgent> agents = new List<FlockAgent>();
 
-    [Range(10, 500)] public int startingCount;
+    [Range(1, 500)] public int startingCount;
     [Range(1f, 100f)] public float driveFactor;
     [Range(1f, 100f)] public float maxSpeed;
     [Range(1f, 10f)] public float neigbourRadius;
@@ -37,6 +37,7 @@ public class Flock : MonoBehaviour
             FlockAgent newAgent = Instantiate(agentPrefab, Random.insideUnitSphere * startingCount * agentDensity,
                 Quaternion.Euler(Vector3.up * Random.Range(0, 360f)));
             newAgent.name = "Agent " + i;
+            newAgent.SetFlock(this);
             agents.Add(newAgent);
         }
     }

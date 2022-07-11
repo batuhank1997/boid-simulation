@@ -7,12 +7,18 @@ using UnityEngine;
 public class FlockAgent : MonoBehaviour
 {
     public Collider AgentCollider { get; set; }
+    public Flock AgentFlock { get; set; }
     
     private void Start()
     {
         AgentCollider = GetComponent<Collider>();
     }
 
+    public void SetFlock(Flock flock)
+    {
+        AgentFlock = flock;
+    }
+    
     public void Move(Vector3 velocity)
     {
         transform.forward = velocity;

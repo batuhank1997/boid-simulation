@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Stay In Borders
   m_EditorClassIdentifier: 
   center: {x: 0, y: 0, z: 0}
-  radius: 20
+  radius: 60

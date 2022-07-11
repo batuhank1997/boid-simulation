@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Flock/Behavior/SteerCohesion")]
-public class SteerCohesionBehavior : FlockBehaviour
+public class SteerCohesionBehavior : FilteredFlockBehavior
 {
     private Vector3 currentVelocity;
 
@@ -15,23 +15,26 @@ public class SteerCohesionBehavior : FlockBehaviour
         if (context.Count == 0)
             return Vector3.zero;
         
+        
         //add all points together and average
         Vector3 cohesionMove = Vector3.zero;
 
-        foreach (Transform item in context)
+        List<Transform> filteredContext = (filter == null) ? context : filter.Filter(agent, context);
+
+        foreach (Transform item in filteredContext)
         {
             cohesionMove += item.position;
         }
 
-        cohesionMove /= context.Count;
+        cohesionMove /= filteredContext.Count;
         
-        if (float.IsNaN(currentVelocity.x) || float.IsNaN(currentVelocity.y) || float.IsNaN(currentVelocity.z))
-            currentVelocity = Vector3.zero;
+        
         
         //for offset from agent pos
         cohesionMove -= agent.transform.position;
         cohesionMove = Vector3.SmoothDamp(agent.transform.forward, cohesionMove, ref currentVelocity, agentSmoothTime);
 
+        // cohesionMove = Vector3.Lerp(agent.transform.forward, cohesionMove, agentSmoothTime * Time.deltaTime);
         return cohesionMove;
     }
 }

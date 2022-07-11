@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Flock/Behavior/Cohesion")]
-public class CohesionBehavior : FlockBehaviour
+public class CohesionBehavior : FilteredFlockBehavior
 {
     //finds the average position between neigbors and tries to move there
     public override Vector3 CalculateMove(FlockAgent agent, List<Transform> context, Flock flock)
