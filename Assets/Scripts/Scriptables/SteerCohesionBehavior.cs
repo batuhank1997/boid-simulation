@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Flock/Behavior/SteerCohesion")]
 public class SteerCohesionBehavior : FilteredFlockBehavior
 {
-    private Vector3 currentVelocity;
+    private Vector3 velocity = Vector3.zero;
 
     public float agentSmoothTime = 0.5f;
     
@@ -26,15 +26,17 @@ public class SteerCohesionBehavior : FilteredFlockBehavior
             cohesionMove += item.position;
         }
 
-        cohesionMove /= filteredContext.Count;
+        cohesionMove /= context.Count;
         
-        
+        /*if (float.IsNaN(cohesionMove.x) || float.IsNaN(cohesionMove.y) || float.IsNaN(cohesionMove.z))
+            currentVelocity = Vector3.zero;*/
         
         //for offset from agent pos
         cohesionMove -= agent.transform.position;
-        cohesionMove = Vector3.SmoothDamp(agent.transform.forward, cohesionMove, ref currentVelocity, agentSmoothTime);
+        cohesionMove = Vector3.SmoothDamp(agent.transform.forward, cohesionMove, ref velocity, agentSmoothTime);
 
-        // cohesionMove = Vector3.Lerp(agent.transform.forward, cohesionMove, agentSmoothTime * Time.deltaTime);
+        
+
         return cohesionMove;
     }
 }

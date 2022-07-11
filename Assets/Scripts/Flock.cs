@@ -58,7 +58,7 @@ public class Flock : MonoBehaviour
             {
                 move = move.normalized * maxSpeed;
             }
-            
+
             agent.Move(move);
         }
     }
