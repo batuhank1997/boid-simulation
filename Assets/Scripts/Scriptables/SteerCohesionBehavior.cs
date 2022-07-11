@@ -25,6 +25,9 @@ public class SteerCohesionBehavior : FlockBehaviour
 
         cohesionMove /= context.Count;
         
+        if (float.IsNaN(currentVelocity.x) || float.IsNaN(currentVelocity.y) || float.IsNaN(currentVelocity.z))
+            currentVelocity = Vector3.zero;
+        
         //for offset from agent pos
         cohesionMove -= agent.transform.position;
         cohesionMove = Vector3.SmoothDamp(agent.transform.forward, cohesionMove, ref currentVelocity, agentSmoothTime);
